@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-  
 
 from pyquery import PyQuery
-from multiprocessing import dummy
+from multiprocessing import Pool
 import os
 import urllib2
 import sys
@@ -18,19 +18,20 @@ def download(url,pool):
     pq = PyQuery(url)
     courseList = pq("#list2")
     kv = [
-            ( i(".u-ctitle").text() , i(".downbtn").attr("href") )
+            ( i(".u-ctitle").text().replace(" ","") , i(".downbtn").attr("href") )
             for i in courseList(".u-even,.u-odd").items()
         ]
-    print kv
+    for i , j in kv :
+        print i
     pool.map(task, kv)
-    pool.close()
+    #pool.close()
     pool.join()
 
 
 def run():
     while 1:
         URL = raw_input("请输入公开课主页面的URL:")
-        POOL = dummy.Pool(processes=5)
+        POOL = Pool(processes=5)
         download(URL,POOL)
         choice = raw_input("继续(y/n):")
         if choice != "Y" or choice != "y":
