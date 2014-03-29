@@ -18,7 +18,7 @@ def download(url,pool):
     pq = PyQuery(url)
     courseList = pq("#list2")
     kv = [
-            ( i(".u-ctitle>a").text() , i(".downbtn").attr("href") )
+            ( i(".u-ctitle").text() , i(".downbtn").attr("href") )
             for i in courseList(".u-even,.u-odd").items()
         ]
     print kv
@@ -30,7 +30,7 @@ def download(url,pool):
 def run():
     while 1:
         URL = raw_input("请输入公开课主页面的URL:")
-        POOL = dummy.Pool(5)
+        POOL = dummy.Pool(processes=5)
         download(URL,POOL)
         choice = raw_input("继续(y/n):")
         if choice != "Y" or choice != "y":
