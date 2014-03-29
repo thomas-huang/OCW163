@@ -11,7 +11,6 @@ def task(args):
     if os.system("wget -O %s.mp4 -c %s " % (args[0].encode("utf-8"),
                                         args[1].encode("utf-8"))) != 0:
         sys.stderr.write('\033[1;41m %s 下载失败! \033[1;m' ]]' % args[0])
-         
         exit(1)
 
 def download(url,pool):
