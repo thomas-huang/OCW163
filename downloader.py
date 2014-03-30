@@ -21,10 +21,8 @@ def download(url,pool):
             ( i(".u-ctitle").text().replace(" ","") , i(".downbtn").attr("href") )
             for i in courseList(".u-even,.u-odd").items()
         ]
-    for i , j in kv :
-        print i
     pool.map(task, kv)
-    #pool.close()
+    pool.close()
     pool.join()
 
 
